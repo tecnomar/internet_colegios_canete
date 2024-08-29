@@ -94,10 +94,12 @@
             // });
 
             locations.forEach(function(location) {
-    var marker = new google.maps.Marker({
-        position: location,
-        map: map
-    });
+   
+ var marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    icon: location.color === 'red' ? 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                });
 
     // Define el contenido HTML con un botón
     var contentString = `
