@@ -78,40 +78,58 @@
                 {lat: -12.322138, lng: -76.511698, name: '20829 - DANIEL ALCIDES CARRION', color: 'red'}
             ];
 
-            locations.forEach(function(location) {
-                var marker = new google.maps.Marker({
-                    position: location,
-                    map: map,
-                    icon: location.color === 'blue' ? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-                });
+           locations.forEach(function(location) {
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        icon: getMarkerIcon(location.color)
+    });
 
-                var contentString = `
-                    <div>
-                        ${location.name}
-                        <br>
-                        <button id="btn-${location.lat}-${location.lng}">Iniciar recorrido en Google Maps</button>
-                    </div>
-                `;
+    var contentString = `
+        <div>
+            ${location.name}
+            <br>
+            <button id="btn-${location.lat}-${location.lng}">Iniciar recorrido en Google Maps</button>
+        </div>
+    `;
 
-                var infowindow = new google.maps.InfoWindow({
-                    content: contentString
-                });
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
 
-                marker.addListener('click', function() {
-                    infowindow.open(map, marker);
-                });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
 
-                google.maps.event.addListener(infowindow, 'domready', function() {
-                    var button = document.getElementById(`btn-${location.lat}-${location.lng}`);
-                    if (button) {
-                        button.addEventListener('click', function() {
-                            var url = `https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`;
-                            window.open(url, '_blank');
-                        });
-                    }
-                });
+    google.maps.event.addListener(infowindow, 'domready', function() {
+        var button = document.getElementById(`btn-${location.lat}-${location.lng}`);
+        if (button) {
+            button.addEventListener('click', function() {
+                var url = `https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`;
+                window.open(url, '_blank');
             });
         }
+    });
+});
+
+// Función que devuelve el ícono correspondiente basado en el color
+function getMarkerIcon(color) {
+    switch(color) {
+        case 'blue':
+            return 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+        case 'red':
+            return 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+        case 'yellow':
+            return 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+        case 'green':
+            return 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+        case 'orange':
+            return 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
+        default:
+            return 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'; // Default to blue if no color is specified
+    }
+}
+
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6iXoTF-XqnwAVs2FwPjVatR_kqG60Pyk&callback=initMap"></script>
 </body>
