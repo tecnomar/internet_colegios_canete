@@ -87,9 +87,9 @@
 
                 var contentString = `
                     <div>
-                        ${location.name}
+                        <strong>${location.name}</strong>
                         <br>
-                        <button id="btn-${location.lat}-${location.lng}">Iniciar recorrido en Google Maps</button>
+                        <button onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}', '_blank')">Iniciar recorrido en Google Maps</button>
                     </div>
                 `;
 
@@ -99,12 +99,6 @@
 
                 marker.addListener('click', function() {
                     infowindow.open(map, marker);
-                });
-
-                // Agregar evento click al botón de cada marcador
-                document.getElementById(`btn-${location.lat}-${location.lng}`).addEventListener('click', function() {
-                    var url = `https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`;
-                    window.open(url, '_blank');
                 });
             });
 
