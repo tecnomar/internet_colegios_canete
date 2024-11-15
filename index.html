@@ -82,16 +82,16 @@
                 var marker = new google.maps.Marker({
                     position: location,
                     map: map,
-                    icon: location.color === 'blue' ? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                    icon: getMarkerIcon(location.color)
                 });
 
-                var contentString = 
+                var contentString = `
                     <div>
                         ${location.name}
                         <br>
                         <button id="btn-${location.lat}-${location.lng}">Iniciar recorrido en Google Maps</button>
                     </div>
-                ;
+                `;
 
                 var infowindow = new google.maps.InfoWindow({
                     content: contentString
@@ -101,18 +101,20 @@
                     infowindow.open(map, marker);
                 });
 
-                google.maps.event.addListener(infowindow, 'domready', function() {
-                    var button = document.getElementById(btn-${location.lat}-${location.lng});
-                    if (button) {
-                        button.addEventListener('click', function() {
-                            var url = https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng};
-                            window.open(url, '_blank');
-                        });
-                    }
+                // Agregar evento click al botón de cada marcador
+                document.getElementById(`btn-${location.lat}-${location.lng}`).addEventListener('click', function() {
+                    var url = `https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`;
+                    window.open(url, '_blank');
                 });
             });
+
+            function getMarkerIcon(color) {
+                return {
+                    url: `https://maps.google.com/mapfiles/ms/icons/${color}-dot.png`
+                };
+            }
         }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6iXoTF-XqnwAVs2FwPjVatR_kqG60Pyk&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 </body>
 </html>
