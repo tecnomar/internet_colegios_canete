@@ -101,7 +101,13 @@
                     position: location,
                     map: map,
                     icon: getMarkerIcon(location.color),
-                    label: location.number
+                    label: {
+                        text: location.number, // Asignamos el número aquí
+                        color: 'black', // Color del texto
+                        fontSize: '16px', // Tamaño de la fuente
+                        fontWeight: 'bold', // Grosor de la fuente
+                    },
+                    labelAnchor: new google.maps.Point(0, -30) // Desplazamos e
                 });
 
                 var contentString = `
