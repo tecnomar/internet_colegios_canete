@@ -100,7 +100,8 @@
                 var marker = new google.maps.Marker({
                     position: location,
                     map: map,
-                    icon: getMarkerIcon(location.color)
+                    icon: getMarkerIcon(location.color),
+                    label: location.number
                 });
 
                 var contentString = `
